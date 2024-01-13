@@ -1,0 +1,60 @@
+<div class="bg-black min-h-[100vh] mx-auto px-4 py-20">
+    <div class=" isolate overflow-hidden ">
+        <img src="assets/images/Cafenation_Logo.png"
+            alt="bg" class="fixed inset-0 -z-10 h-full w-full p-4 object-cover md:object-center opacity-5">
+        <!-- <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+            alt=""
+            class="absolute  inset-0 -z-10 h-full min-h-screen w-full object-cover object-right md:object-center"> -->
+
+        <!-- style="background-image: url('https://images.pexels.com/photos/7598536/pexels-photo-7598536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover; background-position: right center;" -->
+        <div class="flex justify-end">
+            <div class="relative flex flex-wrap items-stretch">
+                <label
+                    class="flex items-center whitespace-nowrap rounded-l-md  border-t-2 border-l-2 border-black border-b-2 border-solid bg-green-950 bg-opacity-40 sm:text-sm py-[0.25rem] pl-2 text-center text-base leading-[1.6] text-gray-300
+                    font-PhenomenaBold"
+                    for="inputGroupSelect01">Category</label>
+                
+                <select id="inputGroupSelect01"
+                    class="h-full w-sm  relative block flex-auto px-2 rounded-r-md py-0 pl-4  pr-7 border-black  border-t-2 border-r-2 border-b-2 text-gray-100 bg-green-950 bg-opacity-40 sm:text-sm focus:ring-0 focus:border-black focus:outline-none
+                    font-PhenomenaBold "
+                    (change)="onSelectChange($event.target)">
+                    @for (item of mealCategoryList; track $index) {
+                    <option [value]="item.value">{{item.name}} </option>
+                    }
+                </select>
+            </div>
+
+
+        </div>
+        <div class="mt-8 grid grid-cols-1 gap-y-2 gap-x-2 sm:grid-cols-2 md:grid-cols-3">
+            @for (item of menuList; track $index ) {
+            @if (item.dishName) {
+            <div
+                class="flex flex-row xs:flex-row items-center justify-start bg-green-900 bg-opacity-10 rounded-md  shadow-sm p-2 mb-1 bg-clip-padding backdrop-filter backdrop-blur-sm">
+                @if ((item.imageUrl) && !(item.imageUrl === "") ) {
+                <div class="flex-shrink-0 pr-2">
+                    <img [src]="item.imageUrl" alt="Product image" class="w-24 h-24 rounded-lg object-cover">
+                </div>
+                }
+                <div class="mt-4 md:mt-0 w-full px-2">
+                    <h2 class="text-xl text-green-600  font-PhenomenaExtraBold">{{item.dishName}}</h2>
+                    <a href="" class="relative rounded-full px-2 py-1  bg-green-900 text-white hover:bg-green-200 hover:text-black dark:bg-black dark:text-gray-300 
+                                font-PhenomenaBold text-sm">{{
+                        item.category }}</a>
+                    <p class="mt-2 text-gray-300 text-md font-PhenomenaRegular">{{item.description}}</p>
+                    <div class="mt-4 flex items-center">
+
+                        <span class="ml-auto text-green-700 text-lg self-end font-PhenomenaBold">&#x20B9; {{item.price}}</span>
+                    </div>
+                </div>
+            </div>
+            }
+            }
+
+        </div>
+    </div>
+</div>
+
+<!-- https://images.pexels.com/photos/3458448/pexels-photo-3458448.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 -->
+<!-- https://images.pexels.com/photos/4264046/pexels-photo-4264046.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 -->
+<!-- https://images.pexels.com/photos/1813466/pexels-photo-1813466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 -->
