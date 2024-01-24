@@ -1,0 +1,74 @@
+<div class="min-h-[100vh] bg-black isolate px-6 pt-16 lg:px-8 overflow-hidden">
+    <img src="assets/images/Cafenation_Logo.png" alt="bg"
+        class="fixed inset-0 -z-10 h-full w-full p-4 object-cover md:object-center opacity-5">
+
+    <form [formGroup]="form" class="max-w-md mx-auto my-6">
+        <input hidden
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="id" formControlName="id" type="text" placeholder="categ id">
+        <div class="mb-4">
+            <label class="block text-gray-400 text-sm font-bold mb-2" for="name">Placement Number:</label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="Placement_id" formControlName="placement_id" type="number" placeholder="Enter placement">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-400 text-sm font-bold mb-2" for="name">Name:</label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="name" formControlName="name" type="text" placeholder="Enter name">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-400 text-sm font-bold mb-2" for="value">Value (allowed lower case and underscore with no spaces*):</label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                formControlName="value" id="value" type="text" placeholder="Enter value">
+        </div>
+        <div class="flex items-center justify-between">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="submit()">
+                Submit
+            </button>
+            <button
+                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button" (click)="clear()">
+                Clear
+            </button>
+        </div>
+    </form>
+    <div class="overflow-auto">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b-2 border-gray-300 text-gray-200">Placement ID</th>
+                    <th class="py-2 px-4 border-b-2 border-gray-300 text-gray-200">Name</th>
+                    <th class="py-2 px-4 border-b-2 border-gray-300 text-gray-200">Value</th>
+                    <th class="py-2 px-4 border-b-2 border-gray-300 text-gray-200">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of categoryList; track $index) {
+                <tr>
+                    <td class="py-2 px-4 border-b border-gray-300 text-gray-200">{{item.placement_id}}</td>
+                    <td class="py-2 px-4 border-b border-gray-300 text-gray-200">{{item.name}}</td>
+                    <td class="py-2 px-4 border-b border-gray-300 text-gray-200">{{item.value}}</td>
+                    <td class="py-2 px-4 border-b border-gray-300 text-gray-200 flex justify-normal gap-2">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            type="button" (click)="editItem(item)">
+                            Edit
+                        </button>
+                        <button
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            type="button" (click)="deleteItem(item.id)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+    
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -4,7 +4,7 @@ import {
   getFirestore,
   getDoc,
   updateDoc,
-  collection, addDoc, doc, getDocs, query, where, deleteDoc
+  collection, addDoc, doc, getDocs, query, where, deleteDoc, orderBy
 } from 'firebase/firestore/lite';
 
 
@@ -72,12 +72,31 @@ export class FirestoreService {
   }
 
   async getCategoryList() {
-   const querySnapshot = await getDocs(collection(db, "categories"));
+    const querySnapshot = await getDocs(query(collection(db, "categories"), orderBy("placement_id")));
     const categoryList: any[] = [];
     querySnapshot.forEach(async (doc) => {
       categoryList.push({ id: doc.id, ...(doc.data() as any) });
     });
     console.log(categoryList);
     return categoryList; 
+  }
+
+  async addCategory(data: any) {
+    if(data.id){
+      console.log("updating");
+      const docRef = doc(db, "categories", data.id);
+      delete data.id;
+      await updateDoc(docRef, data);
+      return
+    }
+    console.log("adding");
+    delete data.id;
+    const docRef = await addDoc(collection(db, "categories"), data);
+    console.log("Document written with ID: ", docRef.id);
+  }
+  async deleteCategory(id: string) {
+    console.log("deleting");
+    const docRef = doc(db, "categories", id);
+    await deleteDoc(docRef);
   }
 }
