@@ -35,7 +35,7 @@ export class HomeComponent {
     {
       "title": "Levantine cuisine",
       "description": "And what's a meal without the perfect drink to accompany it? Choose from our wide range of beverages - from fresh pressed fruit extracts to creamy milkshakes, smoothies, and the ever-refreshing Mojitos. There's a drink for every mood and moment here at Cafenation.",
-      "image": "assets/images/home_page_3.jpg",
+      "image": "assets/images/home_page_3_two.jpg",
     },
 
   ]
