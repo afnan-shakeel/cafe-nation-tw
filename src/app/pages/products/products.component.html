@@ -24,28 +24,31 @@
         </div>
         <div class="mt-8 grid grid-cols-1 gap-y-2 gap-x-2 sm:grid-cols-2 md:grid-cols-3">
             @for (item of menuList; track $index ) {
-            @if (item.dishName) {
+            @for (menu of item.menuList; track $index) {
+            @if (menu.dishName) {
             <div
                 class="flex flex-row xs:flex-row items-center justify-start bg-green-900 bg-opacity-10 rounded-md  shadow-sm p-2 mb-1 bg-clip-padding backdrop-filter backdrop-blur-sm">
-                @if ((item.imageUrl) && !(item.imageUrl === "") ) {
+                @if ((menu.imageUrl) && !(menu.imageUrl === "") ) {
                 <div class="flex-shrink-0 pr-2">
                     <img [src]="item.imageUrl" alt="Product image" class="w-24 h-24 rounded-lg object-cover">
                 </div>
                 }
                 <div class="mt-4 md:mt-0 w-full px-2">
-                    <h2 class="text-xl text-green-600  font-PhenomenaExtraBold">{{item.dishName}}</h2>
+                    <h2 class="text-xl text-green-600  font-PhenomenaExtraBold">{{menu.dishName}}</h2>
                     <a href="" class="relative rounded-full px-2 py-1  bg-green-900 text-white hover:bg-green-200 hover:text-black dark:bg-black dark:text-gray-300 
-                                font-PhenomenaBold text-sm">{{
-                        item.categoryName }}</a>
-                    <p class="mt-2 text-gray-300 text-md font-PhenomenaRegular">{{item.description}}</p>
+                                            font-PhenomenaBold text-sm">{{
+                        menu.categoryName }}</a>
+                    <p class="mt-2 text-gray-300 text-md font-PhenomenaRegular">{{menu.description}}</p>
                     <div class="mt-4 flex items-center">
 
                         <span class="ml-auto text-green-700 text-lg self-end font-PhenomenaBold">&#x20B9;
-                            {{item.price}}</span>
+                            {{menu.price}}</span>
                     </div>
                 </div>
             </div>
             }
+            }
+
             }
 
         </div>

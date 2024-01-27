@@ -29,7 +29,7 @@ export class FirestoreService {
 
   constructor() { }
 
-  async getMenuData(category: string|null, status: string|null) {
+  async getMenuData(category: string | null, status: string | null) {
     var q: any
     if (category && status) {
       q = query(menu_items, where("category", "==", category), where("status", "==", status));
@@ -37,7 +37,7 @@ export class FirestoreService {
       q = query(menu_items, where("category", "==", category));
     } else if (status) {
       q = query(menu_items, where("status", "==", status));
-    }else{
+    } else {
       q = query(menu_items);
     }
 
@@ -46,11 +46,29 @@ export class FirestoreService {
     querySnapshot.forEach(async (doc) => {
       menuDataList.push({ id: doc.id, ...(doc.data() as any) });
     });
+
+    // Group by category
+    const grouped = menuDataList.reduce((groupedData, item) => {
+      const key = item.categoryName;
+      if (!groupedData[key]) {
+        groupedData[key] = [];
+      }
+      groupedData[key].push(item);
+      return groupedData;
+    }, {});
+    var categories = await this.getCategoryList();
+    categories.forEach((category: any) => {
+      if (grouped[category.name]) {
+        category.menuList = grouped[category.name];
+      }
+    });
     console.log(menuDataList);
-    return menuDataList;
+    console.log(grouped);
+    console.log(categories);
+    return categories;
   }
   async addMenuData(data: any) {
-    if(data.id){
+    if (data.id) {
       console.log("updating");
       const docRef = doc(db, "menu_items", data.id);
       delete data.id;
@@ -78,11 +96,11 @@ export class FirestoreService {
       categoryList.push({ id: doc.id, ...(doc.data() as any) });
     });
     console.log(categoryList);
-    return categoryList; 
+    return categoryList;
   }
 
   async addCategory(data: any) {
-    if(data.id){
+    if (data.id) {
       console.log("updating");
       const docRef = doc(db, "categories", data.id);
       delete data.id;

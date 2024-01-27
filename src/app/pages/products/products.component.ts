@@ -21,7 +21,7 @@ export class ProductsComponent {
   async onSelectChange(event: any) {
     const selectedValue = event.value;
     // Use the selectedValue here
-    if(selectedValue=='all'){
+    if (selectedValue == 'all') {
       this.menuList = await this.firestoreService.getMenuData(null, 'active');
       return;
     }
