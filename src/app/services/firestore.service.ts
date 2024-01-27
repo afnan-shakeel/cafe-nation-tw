@@ -63,7 +63,6 @@ export class FirestoreService {
       }
     });
     console.log(menuDataList);
-    console.log(grouped);
     console.log(categories);
     return categories;
   }
