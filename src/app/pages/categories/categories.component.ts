@@ -29,7 +29,13 @@ export class CategoriesComponent {
     console.log(this.categoryList);
   }
   async submit() {
-    console.log(this.form.value, this.form.valid);
+    let categoryCheck =  this.categoryList.filter(x=>x.value === this.form.value.value).length > 0
+
+    console.log(this.form.value, this.form.valid, categoryCheck);
+    if(categoryCheck){
+      window.alert("category value already exists.")
+      return;
+    }
     if (!this.form.valid) {
       window.alert('invalid form')
       return;

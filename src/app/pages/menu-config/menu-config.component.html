@@ -33,7 +33,7 @@
                         
                         <a href=""
                                 class="relative rounded-full font-medium px-2 py-1 text-xs bg-green-900 text-white hover:bg-green-200 hover:text-black dark:bg-black dark:text-gray-300 ">{{
-                                    item.category }}</a>
+                                    item.categoryName }}</a>
                         <p class="mt-2 text-gray-400 text-sm">{{item.description}}</p>
                         <p class="mt-2 text-gray-400 text-sm font-bold">{{item.status && item.status.toString().toUpperCase()}}</p>
                         <div class="mt-4 flex items-center">
@@ -81,12 +81,12 @@
                 <div class="mb-4">
                     <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                     <div class="flex items-center mt-1">
-                        <input type="checkbox" id="status" name="status" class="form-checkbox h-4 w-4 text-green-500 transition duration-150 ease-in-out" formControlName="status" [ngModel]="menuForm.get('status')?.value === 'active'">
+                        <input type="checkbox" id="status" name="status" class="form-checkbox h-4 w-4 text-green-500 transition duration-150 ease-in-out" formControlName="status" >
                         <label for="status" class="ml-2 block text-sm text-gray-900">Active</label>
                     </div>
                 </div>
                 <div class="flex justify-end">
-                    <button type="button" (click)="submitMenu()" class="px-4 py-2 bg-green-500 text-white rounded-md">Add</button>
+                    <button type="button" (click)="submitMenu()" class="px-4 py-2 bg-green-500 text-white rounded-md">Submit</button>
                     <button type="button" (click)="setMenuForm(false)" class="ml-2 px-4 py-2 bg-red-500 text-white rounded-md">Cancel</button>
                 </div>
             

@@ -35,17 +35,20 @@ export class MenuConfigComponent {
     category: new FormControl(''),
     description: new FormControl(''),
     imageUrl: new FormControl(''),
-    status: new FormControl(''),
+    status: new FormControl(),
   });
   async submitMenu() {
     const { name, price, category, description, imageUrl, status, id } = this.menuForm.controls;
     console.log(name.value, price.value, category.value, description.value, imageUrl.value, status.value);
+    let categoryName = this.mealCategoryList.filter(x=> x.value == category.value)
+
     const res = await this.firestoreService.addMenuData(
       {
         id: id.value,
         dishName: name.value,
         price: price.value,
         category: category.value,
+        categoryName: categoryName[0].name,
         description: description.value,
         imageUrl: imageUrl.value,
         status: status.value ? 'active' : 'inactive',
@@ -65,7 +68,7 @@ export class MenuConfigComponent {
       category: item.category,
       description: item.description,
       imageUrl: item.imageUrl,
-      status: item.status,
+      status: item.status == 'active' ? true : false,
     });
     this.setMenuForm(true);
   }
@@ -84,6 +87,7 @@ export class MenuConfigComponent {
   }
 
   async onSelectChange(event: any) {
+    console.log('xxx')
     const selectedValue = event.value;
     // Use the selectedValue here
     if (selectedValue == 'all') {
