@@ -15,7 +15,7 @@
                 <select id="inputGroupSelect01" class="h-full w-sm  relative block flex-auto px-2 rounded-r-md py-0 pl-4  pr-7 text-xl border-black  border-t-2 border-r-2 border-b-2 text-gray-100 bg-green-950 bg-opacity-40 sm:text-xl focus:ring-0 focus:border-black focus:outline-none
                     font-PhenomenaBold " (change)="onSelectChange($event.target)">
                     @for (item of mealCategoryList; track $index) {
-                    <option [value]="item.value">{{item.name}} </option>
+                    <option [value]="item.value" class="bg-black bg-opacity-90">{{item.name}} </option>
                     }
                 </select>
             </div>
