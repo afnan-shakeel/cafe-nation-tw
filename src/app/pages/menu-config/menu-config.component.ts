@@ -61,7 +61,7 @@ export class MenuConfigComponent {
 
   ediItem(item: any) {
     console.log(item);
-    this.menuForm.setValue({
+    this.menuForm.patchValue({
       id: item.id,
       name: item.dishName,
       price: item.price,
