@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class CategoriesComponent {
   form: FormGroup;
   categoryList: any[] = [];
+  isEdit: boolean = false;
   constructor(private formBuilder: FormBuilder, private firestoreService: FirestoreService) {
     this.form = this.formBuilder.group({
       id: [null],
@@ -22,31 +23,39 @@ export class CategoriesComponent {
   }
 
   ngOnInit(): void {
-    this.fetch();  }
+    this.fetch();
+  }
+  async tempFunc() {
+
+    let x = await this.firestoreService.tempQuery("menu_items", "category", "az", { "categoryName": "Appetizers" });
+
+  }
   async fetch() {
     this.firestoreService.getCategoryList();
-    this.categoryList =  await this.firestoreService.getCategoryList();
+    this.categoryList = await this.firestoreService.getCategoryList();
     console.log(this.categoryList);
   }
   async submit() {
-    let categoryCheck =  this.categoryList.filter(x=>x.value === this.form.value.value).length > 0
-
+    let categoryCheck = await this.firestoreService.getCategoryList(this.form.value.value);
     console.log(this.form.value, this.form.valid, categoryCheck);
-    if(categoryCheck){
-      window.alert("category value already exists.")
+    if (categoryCheck) {
+      window.alert("Category CODE already exists.")
       return;
     }
     if (!this.form.valid) {
       window.alert('invalid form')
       return;
     }
-    await this.firestoreService.addCategory(this.form.value).catch((err) => { console.log(err);
-    throw err; });
+    await this.firestoreService.addCategory(this.form.value).catch((err) => {
+      console.log(err);
+      throw err;
+    });
     window.alert('saved')
     this.clear()
     this.fetch();
   }
   clear() {
+    this.form.get('value')?.enable();
     this.form.reset();
   }
   async deleteItem(id: string) {
@@ -56,6 +65,7 @@ export class CategoriesComponent {
   }
   editItem(item: any) {
     console.log(item);
+    this.form.get('value')?.disable();
     this.form.patchValue(item);
   }
 }

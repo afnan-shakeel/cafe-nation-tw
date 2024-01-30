@@ -88,8 +88,15 @@ export class FirestoreService {
     return 'deleted'
   }
 
-  async getCategoryList() {
-    const querySnapshot = await getDocs(query(collection(db, "categories"), orderBy("placement_id")));
+  async getCategoryList(value: string | null = null) {
+    let q;
+    if(value){
+      q = query(collection(db, "categories"), where("value", "==", value),orderBy("placement_id"));
+    }else{
+      q = query(collection(db, "categories"), orderBy("placement_id"));
+    }
+
+    const querySnapshot = await getDocs(q);
     const categoryList: any[] = [];
     querySnapshot.forEach(async (doc) => {
       categoryList.push({ id: doc.id, ...(doc.data() as any) });
@@ -116,4 +123,16 @@ export class FirestoreService {
     const docRef = doc(db, "categories", id);
     await deleteDoc(docRef);
   }
+  
+  async tempQuery(collectionPath: string, conditionField: string, conditionValue: any, updateData: any) {
+    const querySnapshot = await getDocs(query(collection(db, collectionPath), where(conditionField, "==", conditionValue)));
+    // console.log(querySnapshot);
+    querySnapshot.forEach(async (_doc) => {
+      updateData = { ...updateData, ..._doc.data() };
+      console.log("update data", " => ", updateData);
+      const docRef = doc(db, collectionPath, _doc.id)
+      await updateDoc(docRef, updateData);
+      
+    });
+  }  
 }
