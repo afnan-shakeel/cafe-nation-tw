@@ -49,7 +49,7 @@ export class FirestoreService {
 
     // Group by category
     const grouped = menuDataList.reduce((groupedData, item) => {
-      const key = item.categoryName;
+      const key = item.category;
       if (!groupedData[key]) {
         groupedData[key] = [];
       }
@@ -58,8 +58,8 @@ export class FirestoreService {
     }, {});
     var categories = await this.getCategoryList();
     categories.forEach((category: any) => {
-      if (grouped[category.name]) {
-        category.menuList = grouped[category.name];
+      if (grouped[category.value]) {
+        category.menuList = grouped[category.value];
       }
     });
     console.log(menuDataList);

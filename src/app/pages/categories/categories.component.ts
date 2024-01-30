@@ -26,9 +26,7 @@ export class CategoriesComponent {
     this.fetch();
   }
   async tempFunc() {
-
-    let x = await this.firestoreService.tempQuery("menu_items", "category", "az", { "categoryName": "Appetizers" });
-
+    await this.firestoreService.tempQuery("menu_items", "category", "az", { "categoryName": "Appetizers" });
   }
   async fetch() {
     this.firestoreService.getCategoryList();
@@ -36,11 +34,13 @@ export class CategoriesComponent {
     console.log(this.categoryList);
   }
   async submit() {
-    let categoryCheck = await this.firestoreService.getCategoryList(this.form.value.value);
-    console.log(this.form.value, this.form.valid, categoryCheck);
-    if (categoryCheck) {
-      window.alert("Category CODE already exists.")
-      return;
+    if(!this.form.value.id){
+      let categoryCheck = await this.firestoreService.getCategoryList(this.form.value.value);
+      console.log(this.form.value, this.form.valid, categoryCheck);
+      if (categoryCheck) {
+        window.alert("Category CODE already exists.")
+        return;
+      }
     }
     if (!this.form.valid) {
       window.alert('invalid form')
