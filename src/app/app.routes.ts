@@ -11,7 +11,7 @@ export const routes: Routes =  [
         path: '', component: MainLayoutComponent, children: [
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'products', component: ProductsComponent },
+            { path: 'menu', component: ProductsComponent },
             { path: 'menu-config', component: MenuConfigComponent, },
             { path: 'categories', component: CategoriesComponent, },
         ],
